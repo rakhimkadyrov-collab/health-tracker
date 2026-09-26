@@ -399,7 +399,7 @@ function renderTodayStats() {
 
 function renderCharts() {
   // Sugar chart
-  const sugar30 = appData.sugar.slice(-30);
+  const sugar30 = [...appData.sugar].sort((a, b) => a.date > b.date ? 1 : -1).slice(-30);
   if (sugar30.length > 1) {
     drawLineChart('sugar-chart', sugar30.map(r => r.date), sugar30.map(r => r.value), '#1a73e8', 3.9, 10);
     const avg = sugar30.reduce((s, r) => s + r.value, 0) / sugar30.length;
@@ -410,7 +410,7 @@ function renderCharts() {
   }
 
   // Weight chart
-  const w30 = appData.weight.slice(-30);
+  const w30 = [...appData.weight].sort((a, b) => a.date > b.date ? 1 : -1).slice(-30);
   if (w30.length > 1) {
     const wMin = Math.min(...w30.map(r => r.value)) - 1;
     const wMax = Math.max(...w30.map(r => r.value)) + 1;
